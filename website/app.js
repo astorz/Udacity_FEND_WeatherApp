@@ -1,6 +1,6 @@
 /* Global Variables */
 const baseUrl = 'https://api.openweathermap.org/data/2.5/weather?zip=';
-const apiKey = ',us&appid=b955c36aeb8584a2bb25ff5a783e8a6e';
+const apiKey = 'b955c36aeb8584a2bb25ff5a783e8a6e';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -23,7 +23,7 @@ function performAction(e){
 
 // Function to retrieve data from Open Weather Map API
 const getApiData = async (base, zip, key) => {
-  const res = await fetch(base+zip+key);
+  const res = await fetch(`${base}${zip},us&units=imperial&appid=${key}`);
   try {
     const newData = await res.json();
     return newData;
@@ -60,7 +60,7 @@ const updateUI = async () => {
     const latestObject = allData[latestKey];
     // Updating UI with latest data entry retrieved from server
     document.getElementById('date').innerHTML = `Date: ${latestObject.date}`;
-    document.getElementById('temp').innerHTML = `Local temperature (at time of entry): ${toFahrenheit(latestObject.temp)}°F`;
+    document.getElementById('temp').innerHTML = `Local temperature (at time of entry): ${latestObject.temp}°F`;
     document.getElementById('content').innerHTML = `Latest reflection on feelings: ${latestObject.comment}`;
     document.getElementById('feelings').value = '';
     document.getElementById('zip').value = '';
@@ -68,9 +68,3 @@ const updateUI = async () => {
     console.log("error", error);
   }
 }
-
-// Helper function to convert temperature in degrees Kelvin to Fahrenheit
-const toFahrenheit = (kel) => {
-  const fahr = ((kel-273.15)*1.8)+32;
-  return fahr.toFixed();
-};
