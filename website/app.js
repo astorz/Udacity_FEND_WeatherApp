@@ -12,6 +12,22 @@ document.getElementById('generate').addEventListener('click', performAction);
 // Callback function to be executed on click
 function performAction(e){
   let zip = document.getElementById('zip').value;
+  // Check for valid zip code entry
+  if (!validZip(zip)) {
+    console.log('help!!!')
+    if(document.getElementById('warning') == null) {
+      const warning = document.createElement('div');
+      warning.setAttribute('id', 'warning');
+      warning.textContent = 'Not a valid Zip code!';
+      document.getElementById('zipContainer').appendChild(warning);
+      const span = document.createElement('span');
+      span.innerHTML = `&times;`;
+      span.setAttribute('class', 'closebtn');
+      document.getElementById('warning').appendChild(span);
+      document.getElementById('warning').addEventListener('click',
+        removeWarnDiv);
+    }
+  }
   let user_comment = document.getElementById('feelings').value;
   getApiData(baseUrl, zip, apiKey)
   .then(function(data) {
@@ -67,4 +83,21 @@ const updateUI = async () => {
   } catch(error) {
     console.log("error", error);
   }
+}
+
+// Test function to check for valid Zip codes
+function validZip(str) {
+  regexp = /(^\d{5}$)/;
+  if (regexp.test(str)){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function removeWarnDiv(){
+  const el = document.getElementById('warning');
+  el.remove();
+  document.getElementById('feelings').value = '';
+  document.getElementById('zip').value = '';
 }

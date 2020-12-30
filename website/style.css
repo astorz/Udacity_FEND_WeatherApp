@@ -24,6 +24,29 @@ body{
   background: rgba(59, 74, 107, .4);
 }
 
+#warning{
+  color: red;
+  background-color: white;
+  padding: 20px;
+  size: 30px;
+  width: 25%;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: red;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
 #entryHolder{
   margin: 25px;
 }
